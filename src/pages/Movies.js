@@ -1,6 +1,6 @@
 import React from "react";
 import { getMovies } from "../movie_data";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Link, Outlet } from "react-router-dom";
 const Movies = () => {
   const movies = getMovies();
   return (
@@ -8,13 +8,18 @@ const Movies = () => {
       <h1>Movie recomendation</h1>
       <div>
         {movies.map((movie) => (
-          <Link
+          <NavLink
             to={"/movies/${movie.id}"}
             key={movie.id}
-            style={{ display: "block" }}
+            style={({ isActive }) => {
+              return {
+                textDecoration: isActive ? "underline" : "",
+                color: isActive ? "#FF9E1B" : "",
+              };
+            }}
           >
-            {movie.title}
-          </Link>
+            <p>{movie.title}</p>
+          </NavLink>
         ))}
       </div>
       <hr />
